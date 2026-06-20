@@ -17,6 +17,7 @@ export async function generatePDF(
     const a4Height = 297;
 
     // Render at high quality
+    // Add extra height to ensure bottom border is fully captured
     const canvas = await html2canvas(element, {
       scale: 2,
       useCORS: true,
@@ -24,7 +25,7 @@ export async function generatePDF(
       backgroundColor: "#ffffff",
       logging: false,
       width: element.scrollWidth,
-      height: element.scrollHeight,
+      height: element.scrollHeight + 4,
     });
 
     const pdf = new jsPDF("p", "mm", "a4");
