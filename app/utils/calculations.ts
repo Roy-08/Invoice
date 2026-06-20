@@ -1,3 +1,25 @@
+import { InvoiceItem } from "../types/invoice";
+
+export function calculateSubtotal(items: InvoiceItem[]): number {
+  return items.reduce((sum, item) => sum + item.amount, 0);
+}
+
+export function calculateCGST(subtotal: number, cgstPercent: number): number {
+  return Math.round(((subtotal * cgstPercent) / 100) * 100) / 100;
+}
+
+export function calculateSGST(subtotal: number, sgstPercent: number): number {
+  return Math.round(((subtotal * sgstPercent) / 100) * 100) / 100;
+}
+
+export function calculateGrandTotal(
+  subtotal: number,
+  cgstAmount: number,
+  sgstAmount: number
+): number {
+  return Math.round((subtotal + cgstAmount + sgstAmount) * 100) / 100;
+}
+
 export function formatCurrency(amount: number): string {
   return amount.toLocaleString("en-IN", {
     minimumFractionDigits: 0,
